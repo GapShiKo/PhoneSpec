@@ -30,14 +30,21 @@
             selectable: true,
             displayEventTime: false,
             events: [
-                    @foreach($phones as $phone)
+                @foreach($phones as $phone)
                 {
                     title: '{{ $phone->name }}',
                     start: '{{ date("Y-m-d", strtotime($phone->date)) }}T00:00:00',
-                    end: '{{ date("Y-m-d", strtotime($phone->date)) }}T23:59:59'
+                    end: '{{ date("Y-m-d", strtotime($phone->date)) }}T23:59:59',
+                    url: '{{ route("show", $phone->id) }}' // Добавляем ссылку на страницу описания телефона
                 },
                 @endforeach
-            ]
+            ],
+            eventClick: function(calEvent, jsEvent, view) {
+                if (calEvent.url) {
+                    window.open(calEvent.url, "_blank"); // Открываем ссылку в новой вкладке
+                    return false; // Предотвращаем стандартное поведение события
+                }
+            }
         });
     });
 </script>

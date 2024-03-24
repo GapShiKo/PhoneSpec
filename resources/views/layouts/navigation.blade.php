@@ -8,7 +8,7 @@
                     <a href="{{ route('home') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
-                    @if(Route::currentRouteName() == 'home')
+                    @if(Route::currentRouteName() == 'home' && app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
                         <a href=url('/add')>
                             <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                         </a>
@@ -23,7 +23,7 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-nav-link>
-                    @if(Route::currentRouteName() == 'home')
+                    @if(Route::currentRouteName() == 'home' && app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
                     <x-nav-link :href="url('/add')" :active="request()->routeIs('add')">
                         {{ __('Add device') }}
                     </x-nav-link>
@@ -53,7 +53,11 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
+                        @if(app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
+                        <x-dropdown-link :href="route('admin')">
+                            {{ __('Admin Panel') }}
+                        </x-dropdown-link>
+                        @endif
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -86,7 +90,7 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            @if(Route::currentRouteName() == 'home')
+            @if(Route::currentRouteName() == 'home' && app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
             <x-responsive-nav-link :href="url('/add')"  :active="request()->routeIs('add')">
                 {{ __('Add Device') }}
             </x-responsive-nav-link>
@@ -107,7 +111,11 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-
+                @if(app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
+                <x-responsive-nav-link :href="route('admin')">
+                    {{ __('Admin Panel') }}
+                </x-responsive-nav-link>
+                @endif
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

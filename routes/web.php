@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AddDevice;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PhoneShowController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +26,25 @@ Route::get('/add', function() {
     return view('add');
 });
 
+Route::get('/edit/{phone}', [PhoneShowController::class, 'edit'])->name('edit');
+
+Route::post('/editing', [AddDevice::class, 'update'])->name('update');
+
+
 Route::get('/calendar', function() {
     $phones = DB::select('select * from phone_specs');
     return view('calendar', array('phones'=>$phones));
 });
 
 Route::post('/adding',[AddDevice::class, 'adding'])->name('adding');
+
+Route::get('/phones/{phone}', [PhoneShowController::class, 'show'])->name('show');
+
+Route::get('/isadmin',[AdminController::class, 'isAdmin'])->name('isadmin');
+
+Route::get('/admin', [AdminController::class, 'show'])->name('admin')->middleware('auth');
+
+Route::get('/admin/users', [AdminController::class, 'showPanel'])->name('users')->middleware('auth');
 
 Route::get('/home', function () {
     $phones = DB::select('select * from phone_specs');
