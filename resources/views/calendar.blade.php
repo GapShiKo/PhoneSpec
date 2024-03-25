@@ -35,14 +35,14 @@
                     title: '{{ $phone->name }}',
                     start: '{{ date("Y-m-d", strtotime($phone->date)) }}T00:00:00',
                     end: '{{ date("Y-m-d", strtotime($phone->date)) }}T23:59:59',
-                    url: '{{ route("show", $phone->id) }}' // Добавляем ссылку на страницу описания телефона
+                    url: '{{ route("show", $phone->id) }}'
                 },
                 @endforeach
             ],
-            eventClick: function(calEvent, jsEvent, view) {
+            eventClick: function(calEvent) {
                 if (calEvent.url) {
-                    window.open(calEvent.url, "_blank"); // Открываем ссылку в новой вкладке
-                    return false; // Предотвращаем стандартное поведение события
+                    window.open(calEvent.url, "_blank");
+                    return false;
                 }
             }
         });

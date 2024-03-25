@@ -5,7 +5,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PhoneShowController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +27,7 @@ Route::get('/add', function() {
 
 Route::get('/edit/{phone}', [PhoneShowController::class, 'edit'])->name('edit');
 
-Route::post('/editing', [AddDevice::class, 'update'])->name('update');
-
+Route::post('/update/{id}', [AddDevice::class, 'update'])->name('device.update');
 
 Route::get('/calendar', function() {
     $phones = DB::select('select * from phone_specs');

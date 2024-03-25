@@ -9,9 +9,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-    <div type="hidden" {{$prphone = $phone}} /div>
-    <form method="POST" action="{{ route('update', ['phone' => $prphone]) }}" enctype="multipart/form-data">
-        @csrf
+    <div type="hidden" {{$id = $phone->id}} /div>
+    <form method="POST" action="{{ route("device.update", $id) }}" enctype="multipart/form-data">
+    @csrf
         <h1>Editing the device</h1>
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -60,7 +60,7 @@
             <x-input-error :messages="$errors->get('image')" class="mt-2" />
         </div>
 
-        <x-primary-button class="mt-4">
+        <x-primary-button class="mt-4" type="submit">
             {{ __('Update the device') }}
         </x-primary-button>
     </form>

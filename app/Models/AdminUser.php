@@ -14,4 +14,9 @@ class AdminUser extends Model
       "email",
       "password"
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 }

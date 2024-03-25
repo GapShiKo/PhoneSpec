@@ -13,10 +13,10 @@ class AddDevice extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'regex:/^[a-zA-Z0-9+ ]+$/', 'max:255'],
             'release_date' => ['required', 'regex:/^\d{2}-\d{2}-\d{4}$/'],
-            'memory_configuration' => 'required|string|max:255',
-            'processor' => 'required|string|max:255',
+            'memory_configuration' => ['required', 'regex:/^[0-9,\/ ]+$/', 'max:255'],
+            'processor' => ['required', 'regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
             'cameras' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Ограничиваем типы файлов и их размер
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $existingDevice = DB::table('phone_specs')->where('name', $validatedData['name'])->exists();
@@ -27,7 +27,7 @@ class AddDevice extends Controller
 
         $image = $request->file('image');
         $imageName = time().'.'.$image->extension();
-        $image->move(public_path('images'), $imageName); // Перемещаем загруженное изображение в public/images
+        $image->move(public_path('images'), $imageName);
 
         DB::table('phone_specs')->insert([
             'name' => $validatedData['name'],
@@ -35,27 +35,27 @@ class AddDevice extends Controller
             'memory' => $validatedData['memory_configuration'],
             'SoC' => $validatedData['processor'],
             'cameras' => $validatedData['cameras'],
-            'thumbnail' => $imageName, // Сохраняем имя файла в БД
+            'thumbnail' => $imageName,
         ]);
 
         return redirect()->route('home')->with('success', 'Added successfully');
     }
 
-    public function update(Request $request,PhoneSpec $prphone)
+    public function update($id, Request $request)
     {
         $validatedData = $request->validate([
             'name' => ['required', 'regex:/^[a-zA-Z0-9+ ]+$/', 'max:255'],
             'release_date' => ['required', 'regex:/^\d{2}-\d{2}-\d{4}$/'],
-            'memory_configuration' => 'required|string|max:255',
-            'processor' => 'required|string|max:255',
+            'memory_configuration' => ['required', 'regex:/^[0-9,\/ ]+$/', 'max:255'],
+            'processor' => ['required', 'regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
             'cameras' => 'required|string|max:255',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Ограничиваем типы файлов и их размер
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $phone = DB::table('phone_specs')->select()->where($prphone->name);
+        $phone = DB::table('phone_specs')->where('id', $id)->first();
 
         if ($phone == null) {
-            return redirect()->back()->with('error', 'Device not found');
+            return redirect()->back()->with('error', 'Device not found'.$id.'error');
         }
 
         $updateData = [
@@ -66,16 +66,21 @@ class AddDevice extends Controller
             'cameras' => $validatedData['cameras'],
         ];
 
-        // Если загружено новое изображение, обновляем его
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time().'.'.$image->extension();
-            $image->move(public_path('images'), $imageName); // Перемещаем загруженное изображение в public/images
+            $image->move(public_path('images'), $imageName);
             $updateData['thumbnail'] = $imageName;
         }
 
-        $phone->update($updateData);
+        $flag = DB::table('phone_specs')->where('id', $id)->update($updateData);
+
+        if ($flag == null) {
+            return redirect()->back()->with('error', 'Error during update');
+        }
+
         return redirect()->route('home')->with('success', 'Device updated successfully');
     }
+
 
 }
