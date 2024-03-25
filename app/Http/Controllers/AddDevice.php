@@ -82,5 +82,28 @@ class AddDevice extends Controller
         return redirect()->route('home')->with('success', 'Device updated successfully');
     }
 
+    public function delete($id)
+    {
+        $phone = DB::table('phone_specs')->where('id', $id)->first();
+
+        if (!$phone) {
+            return redirect()->back()->with('error', 'Device not found');
+        }
+
+        $flag = DB::table('phone_specs')->where('id', $id)->delete();
+
+        if ($flag == null) {
+            return redirect()->back()->with('error', 'Error during update');
+        }
+
+        if ($phone->thumbnail) {
+            $imagePath = public_path('images') . '/' . $phone->thumbnail;
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        return redirect()->route('home')->with('success', 'Device deleted successfully');
+    }
 
 }

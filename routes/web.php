@@ -36,6 +36,8 @@ Route::get('/calendar', function() {
 
 Route::post('/adding',[AddDevice::class, 'adding'])->name('adding');
 
+Route::get('/delete/{id}', [AddDevice::class, 'delete'])->name('delete');
+
 Route::get('/phones/{phone}', [PhoneShowController::class, 'show'])->name('show');
 
 Route::get('/isadmin',[AdminController::class, 'isAdmin'])->name('isadmin');

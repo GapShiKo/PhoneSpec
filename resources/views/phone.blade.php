@@ -53,6 +53,7 @@
         <div class="px-4 py-5 sm:flex sm:items-center sm:justify-between border-b border-gray-200">
             @if(app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
                 <a href="{{ route('edit', $phone) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('delete', $phone->id) }}" class="btn btn-primary">Delete</a>
             @endif
         </div>
     </div>
