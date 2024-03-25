@@ -6,15 +6,15 @@ use App\Models\PhoneSpec;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AddDevice extends Controller
+class DeviceController extends Controller
 {
     public function adding(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'regex:/^[a-zA-Z0-9+ ]+$/', 'max:255'],
+            'name' => ['required', 'regex:/^[a-zA-Z\d+ ]+$/', 'max:255'],
             'release_date' => ['required', 'regex:/^\d{2}-\d{2}-\d{4}$/'],
-            'memory_configuration' => ['required', 'regex:/^[0-9,\/ ]+$/', 'max:255'],
-            'processor' => ['required', 'regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
+            'memory_configuration' => ['required', 'regex:/^[\d,\/ ]+$/', 'max:255'],
+            'processor' => ['required', 'regex:/^[a-zA-Z\d ]+$/', 'max:255'],
             'cameras' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -44,10 +44,10 @@ class AddDevice extends Controller
     public function update($id, Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'regex:/^[a-zA-Z0-9+ ]+$/', 'max:255'],
+            'name' => ['required', 'regex:/^[a-zA-Z\d+ ]+$/', 'max:255'],
             'release_date' => ['required', 'regex:/^\d{2}-\d{2}-\d{4}$/'],
-            'memory_configuration' => ['required', 'regex:/^[0-9,\/ ]+$/', 'max:255'],
-            'processor' => ['required', 'regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
+            'memory_configuration' => ['required', 'regex:/^[\d,\/ ]+$/', 'max:255'],
+            'processor' => ['required', 'regex:/^[a-zA-Z\d ]+$/', 'max:255'],
             'cameras' => 'required|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

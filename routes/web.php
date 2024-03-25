@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AddDevice;
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PhoneShowController;
@@ -27,16 +27,16 @@ Route::get('/add', function() {
 
 Route::get('/edit/{phone}', [PhoneShowController::class, 'edit'])->name('edit');
 
-Route::post('/update/{id}', [AddDevice::class, 'update'])->name('device.update');
+Route::post('/update/{id}', [DeviceController::class, 'update'])->name('device.update');
 
 Route::get('/calendar', function() {
     $phones = DB::select('select * from phone_specs');
     return view('calendar', array('phones'=>$phones));
 });
 
-Route::post('/adding',[AddDevice::class, 'adding'])->name('adding');
+Route::post('/adding',[DeviceController::class, 'adding'])->name('adding');
 
-Route::get('/delete/{id}', [AddDevice::class, 'delete'])->name('delete');
+Route::get('/delete/{id}', [DeviceController::class, 'delete'])->name('delete');
 
 Route::get('/phones/{phone}', [PhoneShowController::class, 'show'])->name('show');
 
