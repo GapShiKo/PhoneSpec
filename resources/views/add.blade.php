@@ -12,9 +12,9 @@
 
     <form method="POST" action="{{ route('adding') }}" enctype="multipart/form-data">
         @csrf
-        <h1>Adding the device</h1>
+        <h1>{{ app('ini-translator')->trans('adding') }}</h1>
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="app('ini-translator')->trans('name')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
             @if(session('error'))
@@ -26,7 +26,7 @@
 
 
         <div class="mt-4">
-            <x-input-label for="release_date" :value="__('Release date')" />
+            <x-input-label for="release_date" :value="app('ini-translator')->trans('release')" />
             <div class="container block mt-1 w-full">
                 <input id="release_date" class="block mt-1 w-full date form-control" type="text" name="release_date" required>
             </div>
@@ -38,31 +38,32 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="memory_configuration" :value="__('Memory configurations')" />
+            <x-input-label for="memory_configuration" :value="app('ini-translator')->trans('memory')" />
             <x-text-input id="memory_configuration" class="block mt-1 w-full" type="text" name="memory_configuration" :value="old('memory_configuration')" required />
             <x-input-error :messages="$errors->get('memory_configuration')" class="mt-2" />
         </div>
 
         <div class="mt-4">
-            <x-input-label for="processor" :value="__('System-on-Chip')" />
+            <x-input-label for="processor" :value="app('ini-translator')->trans('soc')" />
             <x-text-input id="processor" class="block mt-1 w-full" type="text" name="processor" :value="old('processor')" required />
             <x-input-error :messages="$errors->get('processor')" class="mt-2" />
         </div>
 
         <div class="mt-4">
-            <x-input-label for="cameras" :value="__('Cameras')" />
+            <x-input-label for="cameras" :value="app('ini-translator')->trans('cameras')" />
             <x-text-input id="cameras" class="block mt-1 w-full" type="text" name="cameras" :value="old('cameras')" required />
             <x-input-error :messages="$errors->get('cameras')" class="mt-2" />
         </div>
 
         <div class="mt-4">
-            <x-input-label for="image" :value="__('Image')" />
+            <x-input-label for="image" :value="app('ini-translator')->trans('image')" />
             <input id="image" type="file" class="block mt-1 w-full" name="image" required>
             <x-input-error :messages="$errors->get('image')" class="mt-2" />
         </div>
 
         <x-primary-button class="mt-4">
-            {{ __('Add the device') }}
+            {{ app('ini-translator')->trans('save') }}
         </x-primary-button>
     </form>
+    @include('layouts.script')
 </x-guest-layout>

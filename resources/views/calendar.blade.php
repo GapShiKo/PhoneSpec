@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', session('locale', config('app.locale'))) }}">
 <head>
     <title>PhoneSpec</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">

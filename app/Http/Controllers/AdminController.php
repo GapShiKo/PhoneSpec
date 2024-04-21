@@ -27,4 +27,11 @@ class AdminController extends Controller
             return view('admin.panel', compact('users'));
         } else return redirect()->back();
     }
+
+    public function showList()
+    {
+        if ($this->isAdmin(Auth::user())) {
+            return view('admin.visited');
+        } else return redirect()->back();
+    }
 }

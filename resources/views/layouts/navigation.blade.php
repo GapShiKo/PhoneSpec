@@ -21,19 +21,19 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Home') }}
+                        {{ app('ini-translator')->trans('home') }}
                     </x-nav-link>
                     @if(Route::currentRouteName() == 'home' && app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
                     <x-nav-link :href="url('/add')" :active="request()->routeIs('add')">
-                        {{ __('Add device') }}
+                        {{ app('ini-translator')->trans('add') }}
                     </x-nav-link>
                     @endif
                     <x-nav-link :href="url('/calendar')" :active="request()->routeIs('calendar')">
-                        {{ __('Calendar') }}
+                        {{ app('ini-translator')->trans('calendar') }}
                     </x-nav-link>
                 </div>
             </div>
-
+            @auth
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
@@ -51,13 +51,19 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ app('ini-translator')->trans('profile') }}
                         </x-dropdown-link>
                         @if(app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
                         <x-dropdown-link :href="route('admin')">
-                            {{ __('Admin Panel') }}
+                            {{ app('ini-translator')->trans('admin') }}
                         </x-dropdown-link>
                         @endif
+                        <x-dropdown-link :href="route('link', 1)">
+                            {{ __('Google') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('link', 2)">
+                            {{ app('ini-translator')->trans('iis') }}
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -65,12 +71,13 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ app('ini-translator')->trans('logout') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
                 </x-dropdown>
             </div>
+            @endif
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -88,18 +95,19 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Home') }}
+                {{ app('ini-translator')->trans('home') }}
             </x-responsive-nav-link>
             @if(Route::currentRouteName() == 'home' && app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
             <x-responsive-nav-link :href="url('/add')"  :active="request()->routeIs('add')">
-                {{ __('Add Device') }}
+                {{ app('ini-translator')->trans('add') }}
             </x-responsive-nav-link>
             @endif
             <x-responsive-nav-link :href="url('/calendar')"  :active="request()->routeIs('calendar')">
-                {{ __('Calendar') }}
+                {{ app('ini-translator')->trans('calendar') }}
             </x-responsive-nav-link>
         </div>
 
+        @auth
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
@@ -109,13 +117,19 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ app('ini-translator')->trans('profile') }}
                 </x-responsive-nav-link>
                 @if(app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
                 <x-responsive-nav-link :href="route('admin')">
-                    {{ __('Admin Panel') }}
+                    {{ app('ini-translator')->trans('admin') }}
                 </x-responsive-nav-link>
                 @endif
+                <x-responsive-nav-link :href="route('link',1)">
+                    {{ __('Google') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('link',2)">
+                    {{ app('ini-translator')->trans('iis') }}
+                </x-responsive-nav-link>
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -123,11 +137,13 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ app('ini-translator')->trans('logout') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
         </div>
+        @endif
+        @include('layouts.script')
     </div>
 </nav>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', session('locale', config('app.locale'))) }}">
 <head>
     <title>{{$phone->name}}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -31,19 +31,19 @@
             <div class="border-t border-gray-200">
                 <dl>
                     <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="ext-sm font-medium text-gray-500">Release date:</dt>
+                        <dt class="ext-sm font-medium text-gray-500">{{ app('ini-translator')->trans('release') }}:</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{$phone->date}}</dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">Memory configs</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ app('ini-translator')->trans('memory') }}:</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{$phone->memory}}</dd>
                     </div>
                     <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">System-On-Chip</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ app('ini-translator')->trans('soc') }}:</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{$phone->SoC}}</dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">Cameras</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ app('ini-translator')->trans('cameras') }}:</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{$phone->cameras}}</dd>
                     </div>
                     <!-- Другие характеристики телефона -->
@@ -52,8 +52,8 @@
         </div>
         <div class="px-4 py-5 sm:flex sm:items-center sm:justify-between border-b border-gray-200">
             @if(app('App\Http\Controllers\AdminController')->isAdmin(Auth::user()))
-                <a href="{{ route('edit', $phone) }}" class="btn btn-primary">Edit</a>
-                <a href="{{ route('delete', $phone->id) }}" class="btn btn-primary">Delete</a>
+                <a href="{{ route('edit', $phone) }}" class="btn btn-primary">{{ app('ini-translator')->trans('edit') }}</a>
+                <a href="{{ route('delete', $phone->id) }}" class="btn btn-primary">{{ app('ini-translator')->trans('delete') }}</a>
             @endif
         </div>
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Admin Panel</title>
+    <title>{{ app('ini-translator')->trans('usersl') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -14,15 +14,15 @@
 @include('layouts/navigation')
 <div class="container mx-auto mt-8">
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-        <h1 class="px-4 py-1 font-bold text-2xl">Users</h1>
+        <h1 class="px-4 py-1 font-bold text-2xl">{{ app('ini-translator')->trans('users') }}</h1>
         <div class="px-4 py-2 sm:px-1">
             @foreach($users as $user)
                 <div class="border-t border-gray-200">
                     <dl>
                         <div class="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <div class="flex items-center"> <!-- Changed here -->
-                                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">Name: {{$user->name}};</dd>
-                                <dd class="mt-1 pl-1 text-sm text-gray-900 sm:col-span-2">Email: {{$user->email}}</dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ app('ini-translator')->trans('name') }}: {{$user->name}};</dd>
+                                <dd class="mt-1 pl-1 text-sm text-gray-900 sm:col-span-2">{{ app('ini-translator')->trans('email') }}: {{$user->email}}</dd>
                             </div>
 {{--                            <x-dropdown align="right" width="48">--}}
 {{--                                <x-slot name="trigger">--}}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Admin Panel</title>
+    <title>{{ app('ini-translator')->trans('admin') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -15,7 +15,12 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <a href="{{ route('users') }}" class="btn btn-primary btn-lg btn-block">Users table</a>
+            <a href="{{ route('users') }}" class="btn btn-primary btn-lg btn-block">{{ app('ini-translator')->trans('usersl') }}</a>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6 mt-2">
+            <a href="{{ route('visited') }}" class="btn btn-primary btn-lg btn-block">{{ app('ini-translator')->trans('visited') }}</a>
         </div>
     </div>
 </div>
